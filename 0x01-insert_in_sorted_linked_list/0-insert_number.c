@@ -3,32 +3,36 @@
 #include "lists.h"
 
 /**
- * insert_node - prints all elements of a listint_t list
- * @head: pointer to head of list
- * @number: the numbre to introduce in the list
- * Return: address of the new node
+ * insert_node - docs
+ * @head: docs
+ * @number: tdocs
+ * Return: docs
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *nodo_nuevo, *nodo_act;
+	listint_t *nuevo_n;
+	listint_t *act_n;
 
-	nodo_act = *head;
-	nodo_nuevo = malloc(sizeof(listint_t));
-	if (!nodo_nuevo)
+	act_n = *head;
+	nuevo_n = malloc(sizeof(listint_t));
+	if (nuevo_n == NULL)
 		return (NULL);
-	nodo_nuevo->next = NULL;
-	nodo_nuevo->n = number;
-	if ((*head)->n >= nodo_nuevo->n || !*head)
+	nuevo_n->next = NULL;
+	nuevo_n->n = number;
+
+	if (*head == NULL || (*head)->n >= nuevo_n->n)
 	{
-		nodo_nuevo->next = *head;
-		*head = nodo_nuevo;
+		nuevo_n->next = *head;
+		*head = nuevo_n;
 	}
 	else
 	{
-		while (nodo_act->next->n < nodo_nuevo->n && nodo_act->next != NULL)
-			nodo_act = nodo_act->next;
-		nodo_nuevo->next = nodo_act->next;
-		nodo_act->next = nodo_nuevo;
+		while (act_n->next != NULL && act_n->next->n < new->n)
+		{
+			act_n = act_n->next;
+		}
+		nuevo_n->next = act_n->next;
+		act_n->next = nuevo_n;
 	}
-	return (nodo_nuevo);
+	return (nuevo_n);
 }
