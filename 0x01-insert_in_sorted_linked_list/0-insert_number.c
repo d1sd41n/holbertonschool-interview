@@ -37,11 +37,12 @@ listint_t *insert_node(listint_t **head, int number)
 	{
 		nuevo_n->next = a_n;
 		*head = nuevo_n;
+
 		return (nuevo_n);
 	}
 	while (1)
 	{
-		if (!a_n->next || a_n->next->n > n)
+		if (a_n->next == NULL || a_n->next->n > n)
 		{
 			nuevo_n->next = a_n->next;
 			a_n->next = nuevo_n;
