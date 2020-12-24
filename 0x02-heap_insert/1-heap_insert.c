@@ -23,6 +23,7 @@ heap_t *heap_insert(heap_t **root, int value)
 	}
 
 	nn = binary_tree_node(NULL, value);
+
 	if (!*root)
 	{
 		*root = nn;
@@ -30,33 +31,38 @@ heap_t *heap_insert(heap_t **root, int value)
 	}
 
 	altura_de_pila(*root, &aux);
+
 	if (aux >= 2)
 	{
 		aux_process(*root, &padre, aux, 0);
 	}
 	else
+
 	{
 		padre = *root;
 	}
+
 	if (!padre)
 	{
 		padre = *root;
 		while (padre->left != NULL)
 			padre = padre->left;
 	}
+
 	if (!padre->left)
 	{
 		padre->left = nn;
 		nn->parent = padre;
 	}
+
 	else
 	{
 		padre->right = nn;
 		nn->parent = padre;
+
+
 	}
-
 	d_head(root, &nn);
-
 	return (nn);
 }
 
@@ -75,9 +81,12 @@ void d_head(heap_t **last, heap_t **new_node)
 		*last = *new_node;
 		return;
 	}
-	else if ((*new_node)->n > ((*new_node)->parent)->n)
+
+	else if ((*new_node)->n >
+		((*new_node)->parent)->n)
 	{
 		nodo_padre = (*new_node)->parent->n;
+
 		(*new_node)->parent->n = (*new_node)->n;
 		(*new_node)->n = nodo_padre;
 		*new_node = (*new_node)->parent;
@@ -108,13 +117,15 @@ void altura_de_pila(heap_t *aux_var_2, int *aux_var)
  * @height: docs
  */
 
-void aux_process(heap_t *ca, heap_t **r, int aux_var1, int aux_var2)
+void aux_process(heap_t *ca, heap_t **r, int aux_var1,
+		 int aux_var2)
 {
 	aux_var2 += 1;
 	if ((aux_var1 - 1) == aux_var2)
 	{
 		if (!ca->left || !ca->right)
 		{
+
 
 			*r = ca;
 		}
@@ -126,6 +137,7 @@ void aux_process(heap_t *ca, heap_t **r, int aux_var1, int aux_var2)
 	{
 		aux_process(ca->left, r, aux_var1, aux_var2);
 	}
+
 	if (!(*r) && (ca->right))
 	{
 		aux_process(ca->right, r, aux_var1, aux_var2);
