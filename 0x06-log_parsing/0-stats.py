@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 """[summary]
 """
 import sys
@@ -7,7 +6,7 @@ import sys
 
 ssize = 0
 sc = {"200": 0, "301": 0, "400": 0, "401": 0,
-                "403": 0, "404": 0, "405": 0, "500": 0}
+      "403": 0, "404": 0, "405": 0, "500": 0}
 
 try:
     for i, j in enumerate(sys.stdin, 1):
