@@ -3,11 +3,6 @@ import sys
 
 
 def printSolution(table):
-    """[summary]
-
-    Args:
-        table ([type]): [description]
-    """
     solution = []
     for i in range(len(table)):
         for j in range(len(table)):
@@ -17,17 +12,6 @@ def printSolution(table):
 
 
 def isSafe(table, row, coor, n):
-    """[summary]
-
-    Args:
-        table ([type]): [description]
-        row ([type]): [description]
-        coor ([type]): [description]
-        n ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
     for i in range(coor):
         if table[row][i] == 1:
             return False
@@ -44,16 +28,6 @@ def isSafe(table, row, coor, n):
 
 
 def solveNQUtil(table, coor, n):
-    """[summary]
-
-    Args:
-        table ([type]): [description]
-        coor ([type]): [description]
-        n ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
     if coor == n:
         printSolution(table)
         return True
@@ -67,8 +41,6 @@ def solveNQUtil(table, coor, n):
 
 
 if __name__ == "__main__":
-    """[summary]
-    """
     if not len(sys.argv) == 2:
         print("Usage: nqueens N")
         sys.exit(1)
