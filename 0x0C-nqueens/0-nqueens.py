@@ -1,131 +1,86 @@
 #!/usr/bin/python3
-"""[summary]
-
-    Returns:
-        [type]: [description]
-    """
 import sys
 
 
-def check_input(inp):
+def printSolution(table):
     """[summary]
 
     Args:
-        inp ([type]): [description]
+        table ([type]): [description]
+    """
+    solution = []
+    for i in range(len(table)):
+        for j in range(len(table)):
+            if table[i][j] == 1:
+                solution.append([i, j])
+    print(solution)
+
+
+def isSafe(table, row, coor, n):
+    """[summary]
+
+    Args:
+        table ([type]): [description]
+        row ([type]): [description]
+        coor ([type]): [description]
+        n ([type]): [description]
 
     Returns:
         [type]: [description]
     """
-    if len(inp) != 2:
-        print("Usage: nqueens N")
-        exit(1)
+    for i in range(coor):
+        if table[row][i] == 1:
+            return False
+    for i, j in zip(range(row, -1, -1),
+                    range(coor, -1, -1)):
+        if table[i][j] == 1:
+            return False
+    for i, j in zip(range(row, n, 1),
+                    range(coor, -1, -1)):
+        if table[i][j] == 1:
+            return False
 
-    N = 0
-    try:
-        N = int(inp[1])
-    except ValueError:
-        print("N must be a number")
-        exit(1)
-
-    if N < 4:
-        print("N must be at least 4")
-        exit(1)
-
-    return N
+    return True
 
 
-def check__atacking(Queen1, Queen2):
+def solveNQUtil(table, coor, n):
     """[summary]
 
     Args:
-        Queen1 ([type]): [description]
-        Queen2 ([type]): [description]
+        table ([type]): [description]
+        coor ([type]): [description]
+        n ([type]): [description]
 
     Returns:
         [type]: [description]
     """
-    x1, y1 = Queen1
-    x2, y2 = Queen2
-
-    if x1 == x2 or y1 == y2 or abs(x1 - x2) == abs(y1 - y2):
+    if coor == n:
+        printSolution(table)
         return True
+    cout = False
+    for i in range(n):
+        if isSafe(table, i, coor, n):
+            table[i][coor] = 1
+            cout = solveNQUtil(table, coor + 1, n) or cout
+            table[i][coor] = 0
+    return cout
 
-    return False
 
-
-def rotate_board(positions):
+if __name__ == "__main__":
     """[summary]
-
-    Args:
-        positions ([type]): [description]
-
-    Returns:
-        [type]: [description]
     """
-    N = len(positions)
-    rotated = [[0, 0] for i in range(N)]
+    if not len(sys.argv) == 2:
+        print("Usage: nqueens N")
+        sys.exit(1)
 
-    for i in range(N):
-        rotated[i][0] = positions[i][1]
-        rotated[i][1] = - positions[i][0] + (N - 1)
+    if not (sys.argv[1]).isdigit():
+        print("N must be a number")
+        sys.exit(1)
 
-    rotated = sorted(rotated, key=lambda x: x[0])
+    n = int(sys.argv[1])
+    if n < 4:
+        print("N must be at least 4")
+        sys.exit(1)
 
-    return rotated
-
-
-def get_positions(N, variant):
-    """[summary]
-
-    Args:
-        N ([type]): [description]
-        variant ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
-    positions = [[k, 0] for k in range(N)]
-    positions[0][1] = variant
-
-    i = 0
-    while i < N:
-        j = 0
-        while j < i:
-            if positions[i][1] > N - 1:
-                positions[i][1] = 0
-                positions[i - 1][1] += 1
-                i -= 2
-                break
-            if check__atacking(positions[i], positions[j]):
-                positions[i][1] += 1
-                j = 0
-            else:
-                j += 1
-        i += 1
-
-    return positions
-
-
-N = check_input(sys.argv)
-e = 0
-all_pos = []
-while e < N:
-    posotion = get_positions(N, e)
-    y = posotion[0][1]
-    e = y + 1
-    valid = all([Queen[0] < N and Queen[1] < N for Queen in posotion])
-    if valid:
-        posotion = sorted(posotion, key=lambda x: x[0])
-        all_pos.append(posotion)
-for posotion in all_pos:
-    current_pos = posotion
-    for i in range(3):
-        current_pos = rotate_board(current_pos)
-        different = True
-        for j in range(len(all_pos)):
-            if all_pos[j] == current_pos:
-                different = False
-        if different is True:
-            all_pos.append(current_pos)
-for posotion in all_pos:
-    print(posotion)
+    table = [[0 for i in range(n)] for j in range(n)]
+    solveNQUtil(table, 0, n)
