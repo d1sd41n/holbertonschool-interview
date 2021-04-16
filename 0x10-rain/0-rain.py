@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""[summary]
+"""[summary] blank lines 5
 """
+
 
 def rain(walls):
     """[summary]
