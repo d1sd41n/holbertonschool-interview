@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""[summary]
+
+Returns:
+    [type]: [description]
+"""
 import requests
 
 
@@ -23,8 +28,8 @@ def count_words(subreddit, word_list, hot_list_titles=[], after='null'):
                        },
                        allow_redirects=False
                        )
-    if res.status_code != 200:
-        return None
+    # if res.status_code != 200:
+    #     return None
     data = res.json().get(
         "data"
     ).get(
