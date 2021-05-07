@@ -8,35 +8,59 @@ import requests
 
 
 def count_words(subreddit, word_list, hot_list_titles=[], after='null'):
-    base_url = 'https://www.reddit.com/r/'
-    url = base_url + subreddit + "/hot.json"
-    credentials = {'User-Agent': "firefox"}
-    parameters = {"limit": "100", "after": after}
-    response = requests.get(url,
-                            headers=credentials,
-                            params=parameters,
-                            allow_redirects=False)
-    if response.status_code != 200:
+    """[summary]
+
+    Args:
+        subreddit ([type]): [description]
+        word_list ([type]): [description]
+        hot_list_titles (list, optional): [description]. Defaults to [].
+        after (str, optional): [description]. Defaults to 'null'.
+
+    Returns:
+        [type]: [description]
+    """
+    res = requests.get('https://www.reddit.com/r/' + subreddit + "/hot.json",
+                       headers={
+                           'User-Agent': "firefox"
+                       },
+                       params={
+                           "limit": "100", "after": after
+                       },
+                       allow_redirects=False
+                       )
+    if res.status_code != 200:
         return None
-
-    hot_list_of_dicts = response.json().get("data").get("children")
-    after = response.json().get("data").get("after")
-    hot_list_titles.extend([reddit.get("data").get("title") for
-                            reddit in hot_list_of_dicts])
+    data = res.json().get(
+        "data"
+    ).get(
+        "children"
+    )
+    after = res.json(
+    ).get(
+        "data").get(
+        "after")
+    hot_list_titles.extend(
+        [reddit.get("data"
+                    ).get("title") for
+         reddit in data])
     if after is None:
-        to_print_dict = {x: 0 for x in word_list}
-        for word in word_list:
-            count = 0
-            for title in hot_list_titles:
-                split_title = title.split()
-                new_split = [element.lower() for element in split_title]
-                count = count + new_split.count(word.lower())
-            if count != 0:
-                to_print_dict[word] = to_print_dict[word] + count
-
-        for elem in sorted(to_print_dict.items(), key=lambda x: (-x[1], x[0])):
+        data_dict = {
+            x: 0 for x in word_list
+        }
+        for w in word_list:
+            aux = 0
+            for ob in hot_list_titles:
+                aux_list = [x.lower() for x in ob.split()]
+                aux += aux_list.count(w.lower())
+            if aux != 0:
+                data_dict[w] = data_dict[w] + aux
+        for elem in sorted(data_dict.items(),
+                           key=lambda x: (-x[1], x[0])
+                           ):
             if elem[1] != 0:
                 print("{}: {}".format(elem[0], elem[1]))
     else:
-        return count_words(subreddit, word_list,
-                           hot_list_titles, after)
+        return count_words(subreddit,
+                           word_list,
+                           hot_list_titles,
+                           after)
