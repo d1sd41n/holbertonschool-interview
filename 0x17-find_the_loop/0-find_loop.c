@@ -23,23 +23,19 @@ listint_t *loop_located(listint_t *head, listint_t *helper)
 */
 listint_t *find_listint_loop(listint_t *head)
 {
-	listint_t *f_s, *second;
+	listint_t *first, *second;
 
 	if (!head)
 		return (0);
 
-	f_s = head->next;
+	first = head->next;
 	second = head->next->next;
-
-	while (f_s && second && second->next)
+	while (first && second && second->next)
 	{
-		f_s = f_s->next;
+		first = first->next;
 		second = second->next->next;
-	
-		if (f_s == second)
+		if (first == second)
 			return (loop_located(head, second));
-
 	}
-
 	return (0);
 }
