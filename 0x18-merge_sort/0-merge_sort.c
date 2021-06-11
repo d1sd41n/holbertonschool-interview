@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
-* merge - docdoc
+* unmerch - docdoc
 * @array: doc
 * @size: doc
 * @l: doc
