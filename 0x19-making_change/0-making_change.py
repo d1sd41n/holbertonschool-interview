@@ -22,7 +22,7 @@ def makeChange(coins, total):
     while (tota_sum < total
            and index < len(coins)):
         while coins[index] <= total \
-            - tota_sum:
+                - tota_sum:
             tota_sum += coins[index]
             aux += 1
             if tota_sum == total:
