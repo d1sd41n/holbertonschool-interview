@@ -1,56 +1,98 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "list.h"
+#include <stdlib.h>
+#include <string.h>
 
 /**
- * print_list - Print information about each element of a list
- *
- * @list: A pointer to the head of the linked list
- *
- * Return: void
+ * ft_nod - doc
+ * @list: doc
+ * @str: doc
+ * Return: doc
  */
-void print_list(List *list)
+List *ft_nod(List **list, char *str)
 {
-	List *tmp;
+List *new;
 
-	tmp = list;
-	while (tmp)
-	{
-		printf("%s\n", tmp->str);
-		printf("\t->prev: %s\n", tmp->prev ? tmp->prev->str : "NULL");
-		printf("\t->next: %s\n", tmp->next ? tmp->next->str : "NULL");
-		tmp = tmp->next;
-		if (tmp == list)
-			break;
-	}
+new = malloc(sizeof(List));
+if (new == NULL)
+return (NULL);
+new->str = strdup(str);
+if (new->str == NULL)
+{
+free(str);
+return (NULL);
+}
+new->next = new;
+new->prev = new;
+*list = new;
+return (new);
 }
 
 /**
- * main - doc
- *
- * Return: doc
- */
-int main(void)
+* add_node_end - doc
+* @list: doc
+* @str: doc
+* Return: doc
+*/
+List *add_node_end(List **list, char *str)
 {
-	List *list;
+List *new, *tmp, *aux;
 
-	list = NULL;
-	add_node_end(&list, "Holberton");
-	add_node_end(&list, "School");
-	add_node_end(&list, "Full");
-	add_node_end(&list, "Stack");
-	add_node_end(&list, "Engineer");
+if (list == NULL)
+return (NULL);
+if (*list == NULL)
+return (ft_nod(list, str));
 
-	printf("Added to the end:\n");
-	print_list(list);
-	list = NULL;
-	add_node_begin(&list, "Holberton");
-	add_node_begin(&list, "School");
-	add_node_begin(&list, "Full");
-	add_node_begin(&list, "Stack");
-	add_node_begin(&list, "Engineer");
+aux = *list;
+new = malloc(sizeof(List));
+if (new == NULL)
+return (NULL);
+new->str = strdup(str);
+if (new->str == NULL)
+{
+free(new);
+return (NULL);
+}
+new->next = aux;
+new->prev = aux->prev;
+tmp = aux->prev;
+aux->prev = new;
+tmp->next = new;
 
-	printf("Added to the beginning:\n");
-	print_list(list);
-	return (0);
+return (new);
+}
+
+/**
+* add_node_begin - doc
+* @list: doc
+* @str: doc
+* Return: doc
+*/
+List *add_node_begin(List **list, char *str)
+{
+List *new, *tmp, *aux;
+
+if (list == NULL)
+return (NULL);
+if (*list == NULL)
+return (ft_nod(list, str));
+
+aux = *list;
+new = malloc(sizeof(List));
+if (new == NULL)
+return (NULL);
+new->str = strdup(str);
+if (new->str == NULL)
+{
+free(new);
+return (NULL);
+}
+new->next = aux;
+new->prev = aux->prev;
+tmp = aux->prev;
+aux->prev = new;
+tmp->next = new;
+*list = new;
+
+return (new);
+
 }

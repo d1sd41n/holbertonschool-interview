@@ -1,98 +1,54 @@
-#include "list.h"
-#include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 
 /**
- * ft_nod - doc
- * @list: doc
- * @str: doc
- * Return: doc
+ * print_list - Print informations about each element of a list
+ *
+ * @list: A pointer to the head of the linkd list
+ *
+ * Return: void
  */
-List *ft_nod(List **list, char *str)
+void print_list(List *list)
 {
-List *new;
+    List *tmp;
 
-new = malloc(sizeof(List));
-if (new == NULL)
-return (NULL);
-new->str = strdup(str);
-if (new->str == NULL)
-{
-free(str);
-return (NULL);
-}
-new->next = new;
-new->prev = new;
-*list = new;
-return (new);
+    tmp = list;
+    while (tmp)
+    {
+        printf("%s\n", tmp->str);
+        printf("\t->prev: %s\n", tmp->prev ? tmp->prev->str : "NULL");
+        printf("\t->next: %s\n", tmp->next ? tmp->next->str : "NULL");
+        tmp = tmp->next;
+        if (tmp == list)
+            break;
+    }
 }
 
 /**
-* add_node_end - doc
-* @list: doc
-* @str: doc
-* Return: doc
-*/
-List *add_node_end(List **list, char *str)
+ * main - check the code for Holberton School students.
+ *
+ * Return: Always 0.
+ */
+int main(void)
 {
-List *new, *tmp, *aux;
+    List *list;
 
-if (list == NULL)
-return (NULL);
-if (*list == NULL)
-return (ft_nod(list, str));
+    list = NULL;
+    add_node_end(&list, "Holberton");
+    add_node_end(&list, "School");
+    add_node_end(&list, "Full");
+    add_node_end(&list, "Stack");
+    add_node_end(&list, "Engineer");
 
-aux = *list;
-new = malloc(sizeof(List));
-if (new == NULL)
-return (NULL);
-new->str = strdup(str);
-if (new->str == NULL)
-{
-free(new);
-return (NULL);
-}
-new->next = aux;
-new->prev = aux->prev;
-tmp = aux->prev;
-aux->prev = new;
-tmp->next = new;
+    printf("Added to the end:\n");
+    print_list(list);
+    list = NULL;
+    add_node_begin(&list, "Holberton");
+    add_node_begin(&list, "School");
+    add_node_begin(&list, "Full");
+    add_node_begin(&list, "Stack");
+    add_node_begin(&list, "Engineer");
 
-return (new);
-}
-
-/**
-* add_node_begin - doc
-* @list: doc
-* @str: doc
-* Return: doc
-*/
-List *add_node_begin(List **list, char *str)
-{
-List *new, *tmp, *aux;
-
-if (list == NULL)
-return (NULL);
-if (*list == NULL)
-return (ft_nod(list, str));
-
-aux = *list;
-new = malloc(sizeof(List));
-if (new == NULL)
-return (NULL);
-new->str = strdup(str);
-if (new->str == NULL)
-{
-free(new);
-return (NULL);
-}
-new->next = aux;
-new->prev = aux->prev;
-tmp = aux->prev;
-aux->prev = new;
-tmp->next = new;
-*list = new;
-
-return (new);
-
+    printf("Added to the beginning:\n");
+    print_list(list);
+    return (0);
 }
