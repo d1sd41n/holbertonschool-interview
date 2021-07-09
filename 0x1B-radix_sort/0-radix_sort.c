@@ -1,9 +1,9 @@
 #include "sort.h"
 
 /**
- * clear - frees a matrix
- * @grid: double poiter to free
- * Return: No return
+ * clear - doc
+ * @grid: doc
+ * Return: doc
  */
 void clear(int **grid)
 {
@@ -15,9 +15,9 @@ free(grid);
 }
 
 /**
- * exp_t- calculates power of 10
- * @power: power to calculate
- * Return: 10**power
+ * exp_t- doc
+ * @power: doc
+ * Return: doc
  */
 int exp_t(int power)
 {
@@ -29,12 +29,12 @@ return (result);
 }
 
 /**
- * process_t - sort by one digit in a matrix
- * @array: array to sort
- * @tmp: matrix to put the sorted numbers
- * @size: size of arrray
- * @level: digit to apply sortting
- * Return: 0 if the digit is the mostright digit, otherwise 0
+ * process_t - doc
+ * @array: doc
+ * @tmp: dcoc
+ * @size: doc
+ * @level: doc
+ * Return: doc
  */
 int process_t(int *array, int **tmp, size_t size, int level)
 {
@@ -68,11 +68,11 @@ return (1);
 }
 
 /**
- * radix_sort - apply radix sort to array
- * @array: array to sort
- * @size: size of the array
+ * radix_sort - doc
+ * @array: doc
+ * @size: doc
  *
- * Return: No return
+ * Return: doc
  */
 void radix_sort(int *array, size_t size)
 {
@@ -88,4 +88,3 @@ while (flag)
 flag = process_t(array, tmp, size, level++);
 clear(tmp);
 }
-
