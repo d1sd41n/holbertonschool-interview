@@ -15,9 +15,9 @@ int cmp_values(const void *a, const void *b)
 /**
  * check_words - doc
  * @aux_indx: doc
- * @wordlen: 
+ * @wordlen: dfdfddfdsdfs
  * @idx_len: doc
- * Return: doc
+ * Return:  dfdfdf
  **/
 
 int check_words(int *aux_indx, int wordlen, int idx_len)
@@ -33,11 +33,11 @@ int check_words(int *aux_indx, int wordlen, int idx_len)
 }
 
 /**
- * search_word - doc
- * @s: doc
- * @words: doc
- * @nb_words: doc
- * Return: doc
+ * search_word - Function that search words in string
+ * @s: string base
+ * @words: array of words to search in the string
+ * @nb_words: number of words
+ * Return: array with size of substring for every word, otherwise NULL
  **/
 
 int *search_word(char const *s, char const **words, int nb_words)
